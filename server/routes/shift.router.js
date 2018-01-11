@@ -52,7 +52,7 @@ router.post('/', function (req, res) {
                     db.query(queryText, [createdBy, theDate, newShift.urgent, newShift.shift, newShift.adl, newShift.mhw, newShift.nurse, newShift.comments, [notify], newShift.filled, newShift.floor, newShift.shift_status],
                         function (errorMakingQuery, result) {
                             done();
-                            console.log('hey', result.rows[0].shift_status);
+                            // console.log('hey', result.rows[0].shift_status);
                             if (errorMakingQuery) {
                                 console.log('Error making query', errorMakingQuery);
                                 res.sendStatus(500);
@@ -69,13 +69,12 @@ router.post('/', function (req, res) {
                                         res.sendStatus(500);
                                     });
                                 }
-                                
+                                res.sendStatus(201)
                             }
                         });
                         
                 }//end for loop
-                console.log('Success');
-                res.sendStatus(201);
+                console.log('This happens')
             }
         });
     } // end req.isAuthenticated //end if statement
@@ -100,7 +99,7 @@ router.put('/', function (req, res) {
                 console.log('hitting the query');
                 var queryText =
                     'SELECT * FROM "post_shifts"' +
-                    'WHERE "date" >= $1 AND "date" <= $2;';
+                    'WHERE "date" > $1 AND "date" < $2;';
                 db.query(queryText, [firstDayofShifts, lastDayofShifts], function (errorMakingQuery, result) {
                     done(); // add + 1 to pool
                     if (errorMakingQuery) {

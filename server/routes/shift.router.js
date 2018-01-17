@@ -76,7 +76,6 @@ router.post('/', function (req, res) {
                                     }
                                     ); // END QUERY
                                 }
-                                res.sendStatus(201)
                             }
                             // res.sendStatus(201)
                         });
